@@ -29,7 +29,7 @@ export default {
     async login() {
       try {
         const response = await axios.post(
-          "http://localhost:4000/api/auth/login",
+          "https://bkn-psi.vercel.app/api/auth/login",
           {
             username: this.username,
             password: this.password,
