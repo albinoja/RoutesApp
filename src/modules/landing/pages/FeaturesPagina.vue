@@ -2,89 +2,101 @@
   <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-20">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-          Estos son nuestros servicios:
+        <h1
+          class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"
+        >
+          Busca tu Pokémon
         </h1>
         <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-          Texto de prueba de nuestros servicios disponibles
+          Ingresa un número para obtener información del Pokémon.
         </p>
       </div>
-      <div class="flex flex-wrap -m-4 text-center">
-        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-          <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              class="text-indigo-500 w-12 h-12 mb-3 inline-block"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 17l4 4 4-4m-4-5v9"></path>
-              <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"></path>
-            </svg>
-            <h2 class="title-font font-medium text-3xl text-gray-900">5.7M</h2>
-            <p class="leading-relaxed">Descargas</p>
-          </div>
-        </div>
-        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-          <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              class="text-indigo-500 w-12 h-12 mb-3 inline-block"
-              viewBox="0 0 24 24"
-            >
-              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-            </svg>
-            <h2 class="title-font font-medium text-3xl text-gray-900">3.3M</h2>
-            <p class="leading-relaxed">Usuarios</p>
-          </div>
-        </div>
-        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-          <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              class="text-indigo-500 w-12 h-12 mb-3 inline-block"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3 18v-6a9 9 0 0118 0v6"></path>
-              <path
-                d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"
-              ></path>
-            </svg>
-            <h2 class="title-font font-medium text-3xl text-gray-900">15,000</h2>
-            <p class="leading-relaxed">Archivos</p>
-          </div>
-        </div>
-        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-          <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              class="text-indigo-500 w-12 h-12 mb-3 inline-block"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-            <h2 class="title-font font-medium text-3xl text-gray-900">223</h2>
-            <p class="leading-relaxed">Lugares</p>
-          </div>
-        </div>
+
+      <!-- Input para ingresar el número -->
+      <div class="flex justify-center mb-4">
+        <input
+          v-model="pokemonId"
+          type="number"
+          placeholder="Ingresa un número"
+          class="border-2 border-gray-300 rounded-lg p-2"
+        />
+        <button
+          @click="getPokemon"
+          class="ml-4 bg-indigo-500 text-white px-4 py-2 rounded-lg"
+        >
+          Buscar Pokémon
+        </button>
+      </div>
+
+      <!-- Mostrar información del Pokémon -->
+      <div v-if="pokemonData" class="text-center">
+        <h2 class="title-font font-medium text-3xl text-gray-900">
+          {{ pokemonData.name }}
+        </h2>
+        <img
+          :src="pokemonData.photo"
+          alt="Imagen de Pokémon"
+          class="mx-auto my-4 w-32 h-32"
+        />
+      </div>
+
+      <!-- Mensaje de error en caso de que falle -->
+      <div v-if="error" class="text-center text-red-500">
+        <p>Error al obtener el Pokémon. Intenta con otro número.</p>
       </div>
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      pokemonId: "", // Valor que se ingresará
+      pokemonData: null, // Datos del Pokémon
+      error: false, // Para manejar errores
+    };
+  },
+  methods: {
+    async getPokemon() {
+      if (this.pokemonId) {
+        try {
+          this.error = false;
+          const response = await fetch(
+            `https://bkn-swart.vercel.app/api/auth/pokemon/${this.pokemonId}`
+          );
+          const data = await response.json();
+          this.pokemonData = {
+            name: data.name,
+            photo: data.photo,
+          };
+        } catch (err) {
+          this.error = true;
+          this.pokemonData = null;
+        }
+      } else {
+        this.error = true;
+      }
+    },
+  },
+  filters: {
+    capitalize(value) {
+      if (!value) return "";
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Estilos personalizados */
+.pokemon-card {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.pokemon-card:hover {
+  transform: scale(1.05);
+}
+</style>

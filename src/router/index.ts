@@ -8,6 +8,7 @@ const routes = [
     path: "/",
     name: "PrincipalPagina",
     component: PrincipalPagina,
+    meta: { requiresAuth: true },
   },
   {
     path: "/registro",

@@ -17,11 +17,12 @@
       </div>
       <nav class="ml-auto space-x-4 flex items-center h-10 sm:space-x-6">
         <RouterLink to="/">Principal</RouterLink>
-        <RouterLink :to="{ name: 'FeaturesPagina' }">Feature</RouterLink>
+        <RouterLink :to="{ name: 'FeaturesPagina' }">Buscar Pokemon</RouterLink>
         <RouterLink :to="{ name: 'ContactoPagina' }"
           >Contacto Pagina</RouterLink
         >
-        <RouterLink :to="{ name: 'PreciosPagina' }">Precio</RouterLink>
+        <RouterLink :to="{ name: 'PreciosPagina' }">Comprar Pokemon</RouterLink>
+        <RouterLink :to="{ name: 'RegisterPage' }">Registrarse</RouterLink>
         <button @click="logout" class="text-red-600">Logout</button>
         <!-- Botón de Logout -->
       </nav>

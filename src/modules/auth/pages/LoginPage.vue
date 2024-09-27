@@ -1,17 +1,47 @@
 <template>
-  <div class="login-page">
-    <h1 class="text-3xl font-bold underline">Iniciar Sesión</h1>
-    <form @submit.prevent="login">
-      <div>
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" v-model="username" required />
-      </div>
-      <div>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" v-model="password" required />
-      </div>
-      <button type="submit">Iniciar Sesión</button>
-    </form>
+  <div
+    class="login-page min-h-screen flex items-center justify-center bg-gray-100"
+  >
+    <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+      <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">
+        Iniciar Sesión
+      </h1>
+      <p />
+      <form @submit.prevent="login">
+        <div class="mb-4">
+          <label for="username" class="block text-gray-700 font-medium mb-2"
+            >Nombre de usuario:</label
+          >
+          <input
+            type="text"
+            id="username"
+            v-model="username"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+            placeholder="Ingresa tu nombre de usuario"
+          />
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block text-gray-700 font-medium mb-2"
+            >Contraseña:</label
+          >
+          <input
+            type="password"
+            id="password"
+            v-model="password"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+            placeholder="Ingresa tu contraseña"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Iniciar Sesión
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -29,7 +59,7 @@ export default {
     async login() {
       try {
         const response = await axios.post(
-          "https://bkn-psi.vercel.app/api/auth/login",
+          "https://bkn-swart.vercel.app/api/auth/login",
           {
             username: this.username,
             password: this.password,
@@ -37,7 +67,7 @@ export default {
         );
         localStorage.setItem("token", response.data.token); // Guardar el token en localStorage
         alert("Inicio de sesión exitoso");
-        this.$router.push({ name: "PrincipalPagina" }); // Redirigir a la página principal
+        this.$router.push({ name: "PrincipalPagina" });
       } catch (error) {
         console.error(error);
         alert("Error en el inicio de sesión");
@@ -48,5 +78,12 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos opcionales para tu página de inicio de sesión */
+/* Estilos opcionales */
+.login-page {
+  background-color: #f0f4f8;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 </style>
