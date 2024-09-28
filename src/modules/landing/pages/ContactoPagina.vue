@@ -9,7 +9,7 @@
         marginwidth="0"
         title="map"
         scrolling="no"
-        src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=San%20Salvador&ie=UTF8&t=&z=14&iwloc=B&output=embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.713329008969!2d-89.19672212556097!3d13.67518759906399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63311954327075%3A0x28682274f5650dd1!2sUniversidad%20Luterana%20Salvadore%C3%B1a!5e0!3m2!1ses-419!2ssv!4v1727487229449!5m2!1ses-419!2ssv"
         style=""
       ></iframe>
     </div>
@@ -21,7 +21,7 @@
           Feedback
         </h2>
         <p class="leading-relaxed mb-5 text-gray-600">
-          Busca tus tiendas mas cercanas
+          Envia un correo para ver el mensaje
         </p>
         <div class="relative mb-4">
           <label for="email" class="leading-7 text-sm text-gray-600"
